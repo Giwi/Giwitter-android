@@ -1,7 +1,5 @@
 package giwi.org.giwitter;
 
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -26,11 +23,8 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import java.util.ArrayList;
 import java.util.List;
 
-import giwi.org.giwitter.fragment.MessagesFragment;
 import giwi.org.giwitter.fragment.MessagesFragment_;
-import giwi.org.giwitter.fragment.UsersFragment;
 import giwi.org.giwitter.fragment.UsersFragment_;
-import giwi.org.giwitter.fragment.WriteMsgDialog;
 import giwi.org.giwitter.fragment.WriteMsgDialog_;
 import giwi.org.giwitter.helpers.MyRestClient;
 import giwi.org.giwitter.helpers.Session;

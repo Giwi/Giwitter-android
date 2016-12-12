@@ -54,6 +54,7 @@ public class MessagesFragment extends Fragment {
         setupRefreshLayout();
         setupRecyclerView();
         loading(false);
+        refresh();
     }
 
     /**
@@ -71,6 +72,12 @@ public class MessagesFragment extends Fragment {
     private void loading(boolean force) {
         messages_swiperefresh.setRefreshing(true);
         getMessageList(force);
+    }
+
+    @Background(delay=5000)
+    void refresh() {
+        getMessageList(true);
+        refresh();
     }
 
     /**
@@ -99,7 +106,6 @@ public class MessagesFragment extends Fragment {
                 List<Message> listOfMessages = new ArrayList<>();
                 for (int i = 0; i < mess.length(); i++) {
                     JSONObject m = mess.getJSONObject(i);
-                    Log.i("message", m.toString());
                     String username = "inconnu";
                     if (m.has("author") && m.optJSONObject("author") != null) {
                         username = m.getJSONObject("author").getString("username");
