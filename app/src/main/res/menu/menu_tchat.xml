@@ -13,16 +13,4 @@
         app:showAsAction="always"
         android:title="@string/disconnect" />
 
-    <item
-        android:id="@+id/tchat_users"
-        android:icon="@android:drawable/ic_menu_delete"
-        app:showAsAction="always"
-        android:title="@string/disconnect" />
-
-    <item
-        android:id="@+id/tchat_tchat"
-        android:icon="@android:drawable/ic_menu_delete"
-        app:showAsAction="always"
-        android:title="@string/disconnect" />
-
 </menu>

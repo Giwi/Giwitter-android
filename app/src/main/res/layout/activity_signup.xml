@@ -48,7 +48,10 @@
             android:id="@+id/signup_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register" />
+            android:background="@android:color/holo_green_light"
+            android:padding="@dimen/card_margin"
+            android:text="@string/register"
+            android:textColor="@android:color/background_light" />
 
         <ProgressBar
             android:id="@+id/signup_pg"
