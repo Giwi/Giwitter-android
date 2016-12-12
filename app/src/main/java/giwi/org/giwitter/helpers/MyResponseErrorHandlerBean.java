@@ -7,6 +7,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 
@@ -38,6 +39,6 @@ class MyResponseErrorHandlerBean implements ResponseErrorHandler {
      */
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        throw new CustomException(response.getStatusText());
+        throw new RestClientException(response.getStatusText());
     }
 }

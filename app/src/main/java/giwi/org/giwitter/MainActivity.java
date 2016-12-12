@@ -21,6 +21,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.androidannotations.rest.spring.annotations.RestService;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.client.RestClientException;
 
 
 import giwi.org.giwitter.helpers.MyPrefs_;
@@ -68,17 +69,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         loading(true);
-        try {
-            doLogin(signin_username.getText().toString(), signin_pwd
-                    .getText().toString());
-        } catch (Exception e) {
-            dispalyError(e.getMessage());
-        }
+        doLogin(signin_username.getText().toString(), signin_pwd
+                .getText().toString());
     }
+
     @UiThread
     void dispalyError(String message) {
+        loading(false);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
     /**
      * Signin register.
      */
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Background
     void doLogin(String login, String passwd) {
-
         try {
             JSONObject body = new JSONObject()
                     .put("username", login)
@@ -105,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             onPostExecute(resp);
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (RestClientException e) {
+            dispalyError(e.getMessage());
         }
     }
 

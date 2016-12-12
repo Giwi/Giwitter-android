@@ -16,6 +16,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class UsersFragment extends Fragment {
     void getUsers() {
         try {
             displayUsers(restClient.getUsers());
-        }catch (Exception e) {
+        }catch (RestClientException e) {
             dispalyError(e.getMessage());
         }
     }
