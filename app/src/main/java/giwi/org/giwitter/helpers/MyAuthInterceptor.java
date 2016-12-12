@@ -29,6 +29,7 @@ public class MyAuthInterceptor implements ClientHttpRequestInterceptor {
         if(Session.token != null && !"".equals(Session.token)) {
             headers.add(Constants.INTENT_TOKEN, Session.token);
         }
+        headers.add("Content-type", "application/json; chser=UTF-8");
         return execution.execute(request, body);
     }
 }

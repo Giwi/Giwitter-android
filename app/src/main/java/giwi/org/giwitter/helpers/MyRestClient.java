@@ -1,14 +1,7 @@
 package giwi.org.giwitter.helpers;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.rest.spring.annotations.Body;
 import org.androidannotations.rest.spring.annotations.Get;
-import org.androidannotations.rest.spring.annotations.Header;
-import org.androidannotations.rest.spring.annotations.Headers;
 import org.androidannotations.rest.spring.annotations.Post;
 import org.androidannotations.rest.spring.annotations.Put;
 import org.androidannotations.rest.spring.annotations.Rest;
@@ -29,16 +22,10 @@ public interface MyRestClient {
      * @return the string
      */
     @Post("/user/login")
-    @Headers({
-            @Header(name = "Content-type", value = "application/json")
-    })
     String login(@Body String string);
 
 
     @Get(("/private/message"))
-    @Headers({
-            @Header(name = "Content-type", value = "application/json")
-    })
     String getMesages();
 
 
@@ -49,9 +36,6 @@ public interface MyRestClient {
      * @return the string
      */
     @Put("/user/register")
-    @Headers({
-            @Header(name = "Content-type", value = "application/json")
-    })
     String register(@Body String string);
 
     void setHeader(String name, String value);
