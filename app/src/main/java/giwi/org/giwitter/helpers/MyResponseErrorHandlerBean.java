@@ -11,6 +11,9 @@ import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 
+/**
+ * The type My response error handler bean.
+ */
 @EBean
 class MyResponseErrorHandlerBean implements ResponseErrorHandler {
     @RootContext

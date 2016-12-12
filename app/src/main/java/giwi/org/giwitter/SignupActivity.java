@@ -50,6 +50,9 @@ public class SignupActivity extends Activity {
     @RestService
     MyRestClient restClient;
 
+    /**
+     * Signup btn.
+     */
     @Click
     void signup_btn() {
         if (!NetworkHelper.isInternetAvailable(this)) {
@@ -60,6 +63,9 @@ public class SignupActivity extends Activity {
         doRegister();
     }
 
+    /**
+     * Do register.
+     */
     @Background
     void doRegister() {
         try {
@@ -77,6 +83,9 @@ public class SignupActivity extends Activity {
         }
     }
 
+    /**
+     * Redirect.
+     */
     @UiThread
     void redirect() {
         loading(false);

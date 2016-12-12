@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 .getText().toString());
     }
 
+    /**
+     * Dispaly error.
+     *
+     * @param message the message
+     */
     @UiThread
     void dispalyError(String message) {
         loading(false);

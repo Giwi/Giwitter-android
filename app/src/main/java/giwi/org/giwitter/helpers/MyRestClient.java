@@ -15,22 +15,63 @@ import org.springframework.http.converter.StringHttpMessageConverter;
         responseErrorHandler = MyResponseErrorHandlerBean.class,
         interceptors = MyAuthInterceptor.class)
 public interface MyRestClient {
+    /**
+     * Login string.
+     *
+     * @param string the string
+     * @return the string
+     */
     @Post("/user/login")
     String login(@Body String string);
 
+    /**
+     * Gets mesages.
+     *
+     * @return the mesages
+     */
     @Get(("/private/message"))
     String getMesages();
 
+    /**
+     * Gets users.
+     *
+     * @return the users
+     */
     @Get(("/private/user/list"))
     String getUsers();
 
+    /**
+     * Register string.
+     *
+     * @param string the string
+     * @return the string
+     */
     @Put("/user/register")
     String register(@Body String string);
+
+    /**
+     * Send message string.
+     *
+     * @param s the s
+     * @return the string
+     */
     @Post("/private/message")
     String sendMessage(@Body String s);
 
+    /**
+     * Sets header.
+     *
+     * @param name  the name
+     * @param value the value
+     */
     void setHeader(String name, String value);
 
+    /**
+     * Gets header.
+     *
+     * @param name the name
+     * @return the header
+     */
     String getHeader(String name);
 
 

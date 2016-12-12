@@ -25,6 +25,8 @@ public class MessagesDao {
 
     /**
      * Instantiates a new Messages dao.
+     *
+     * @param context the context
      */
     public MessagesDao(Context context) {
         databaseHelper = new DatabaseHelper(context);

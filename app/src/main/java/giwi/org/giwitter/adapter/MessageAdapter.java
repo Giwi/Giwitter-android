@@ -24,46 +24,46 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
   private List<Message> messages = new LinkedList<>();
   private final Context context;
 
-  /**
-   * Instantiates a new Message adapter.
-   *
-   * @param ctx the ctx
-   */
-  public MessageAdapter(Context ctx) {
+    /**
+     * Instantiates a new Message adapter.
+     *
+     * @param ctx the ctx
+     */
+    public MessageAdapter(Context ctx) {
     this.context = ctx;
   }
 
-  /**
-   * Add message.
-   *
-   * @param messages the messages
-   */
-  public void addMessage(List<Message> messages) {
+    /**
+     * Add message.
+     *
+     * @param messages the messages
+     */
+    public void addMessage(List<Message> messages) {
     this.messages = messages;
     this.notifyDataSetChanged();
   }
 
-  /**
-   * On create view holder message adapter . view holder.
-   *
-   * @param parent the parent
-   * @param i      the
-   * @return the message adapter . view holder
-   */
-  @Override
+    /**
+     * On create view holder message adapter . view holder.
+     *
+     * @param parent the parent
+     * @param i      the
+     * @return the message adapter . view holder
+     */
+    @Override
   public MessageAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int i) {
     LayoutInflater inflater = ((Activity) context).getLayoutInflater();
     View convertView = inflater.inflate(R.layout.item_message, parent, false);
     return new ViewHolder(convertView);
   }
 
-  /**
-   * On bind view holder.
-   *
-   * @param vh       the vh
-   * @param position the position
-   */
-  @Override
+    /**
+     * On bind view holder.
+     *
+     * @param vh       the vh
+     * @param position the position
+     */
+    @Override
   public void onBindViewHolder(final MessageAdapter.ViewHolder vh, final int position) {
     vh.username.setText(messages.get(position).getUsername());
     vh.message.setText(messages.get(position).getMsg());
@@ -74,23 +74,23 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
   }
 
-  /**
-   * Gets item id.
-   *
-   * @param position the position
-   * @return the item id
-   */
-  @Override
+    /**
+     * Gets item id.
+     *
+     * @param position the position
+     * @return the item id
+     */
+    @Override
   public long getItemId(int position) {
     return position;
   }
 
-  /**
-   * Gets item count.
-   *
-   * @return the item count
-   */
-  @Override
+    /**
+     * Gets item count.
+     *
+     * @return the item count
+     */
+    @Override
   public int getItemCount() {
     if (messages == null) {
       return 0;
@@ -99,20 +99,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
   }
 
 
-  /**
-   * The type View holder.
-   */
-  static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * The type View holder.
+     */
+    static class ViewHolder extends RecyclerView.ViewHolder {
     TextView username;
     TextView message;
     TextView date;
 
-    /**
-     * Instantiates a new View holder.
-     *
-     * @param itemView the item view
-     */
-    ViewHolder(final View itemView) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
+        ViewHolder(final View itemView) {
       super(itemView);
       username = (TextView) itemView.findViewById(R.id.msg_user);
       message = (TextView) itemView.findViewById(R.id.msg_message);
