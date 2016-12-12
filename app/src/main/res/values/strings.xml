@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TchatApp</string>
+    <string name="app_name">Giwitter</string>
     <string name="username_hint">Your username</string>
     <string name="pwd_hint">Your password</string>
     <string name="connection">Connection</string>

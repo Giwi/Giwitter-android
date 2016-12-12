@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -16,6 +17,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.client.RestClientException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,11 +109,22 @@ public class MessagesFragment extends Fragment {
                 messagesDao.writeMessages(listOfMessages);
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (RestClientException e) {
+                dispalyError(e.getMessage());
             }
         }
         display(messagesDao.readMessages());
     }
-
+    /**
+     * Dispaly error.
+     *
+     * @param message the message
+     */
+    @UiThread
+    void dispalyError(String message) {
+        messages_swiperefresh.setRefreshing(false);
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
     /**
      * Display.
      *

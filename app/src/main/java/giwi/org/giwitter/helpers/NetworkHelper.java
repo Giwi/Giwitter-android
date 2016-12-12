@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
  */
 public class NetworkHelper {
 
-
     /**
      * Is internet available boolean.
      *
@@ -35,26 +34,5 @@ public class NetworkHelper {
         }
         //default allowed to access internet
         return true;
-    }
-
-    /**
-     * Read it string.
-     *
-     * @param stream the stream
-     * @return the string
-     * @throws IOException the io exception
-     */
-// Reads an InputStream and converts it to a String.
-    public static String readIt(InputStream stream) throws IOException {
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(stream));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        return response.toString();
     }
 }

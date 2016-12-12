@@ -8,7 +8,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_account_circle_black" />
+        android:src="@drawable/ic_account_circle" />
 
     <TextView
         android:id="@+id/user_name"

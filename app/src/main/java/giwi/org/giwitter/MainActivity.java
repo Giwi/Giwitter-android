@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     .put("username", login)
                     .put("password", passwd);
             String resp = restClient.login(body.toString());
-            System.out.println(resp);
             onPostExecute(resp);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -150,14 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 Session.token = resp.getString("secureToken");
                 Session.userId = resp.getString("user_id");
                 DrawerActivity_.intent(this).start();
-           /*
-                Intent i = new Intent(context, DrawerActivity.class);
-                JSONObject resp = new JSONObject(secureToken);
-                Log.i(Constants.TAG, secureToken);*/
-            /*
-                i.putExtra(Constants.INTENT_TOKEN, resp.getString("secureToken"));
-                i.putExtra(Constants.INTENT_USER_ID, resp.getString("user_id"));
-                startActivity(i);*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }

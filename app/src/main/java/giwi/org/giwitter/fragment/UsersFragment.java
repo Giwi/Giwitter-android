@@ -79,7 +79,7 @@ public class UsersFragment extends Fragment {
     void getUsers() {
         try {
             displayUsers(restClient.getUsers());
-        }catch (RestClientException e) {
+        } catch (RestClientException e) {
             dispalyError(e.getMessage());
         }
     }
@@ -90,7 +90,8 @@ public class UsersFragment extends Fragment {
      * @param message the message
      */
     @UiThread
-     void dispalyError(String message) {
+    void dispalyError(String message) {
+        users_swiperefresh.setRefreshing(false);
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 

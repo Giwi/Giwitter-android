@@ -13,7 +13,7 @@ import java.io.IOException;
  * The type My auth interceptor.
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class MyAuthInterceptor implements ClientHttpRequestInterceptor {
+class MyAuthInterceptor implements ClientHttpRequestInterceptor {
 
     /**
      * Intercept client http response.
@@ -29,7 +29,7 @@ public class MyAuthInterceptor implements ClientHttpRequestInterceptor {
         if(Session.token != null && !"".equals(Session.token)) {
             headers.add(Constants.INTENT_TOKEN, Session.token);
         }
-        headers.add("Content-type", "application/json; chser=UTF-8");
+        headers.add("Content-type", "application/json; charset=UTF-8");
         return execution.execute(request, body);
     }
 }

@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.rest.spring.annotations.RestService;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.client.RestClientException;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -100,6 +102,8 @@ public class WriteMsgDialog extends DialogFragment {
             restClient.sendMessage(message.toString());
         } catch (JSONException e) {
             Log.e(Constants.TAG, e.getMessage());
+        } catch (RestClientException e) {
+            dispalyError(e.getMessage());
         }
     }
 
@@ -107,5 +111,10 @@ public class WriteMsgDialog extends DialogFragment {
         InputMethodManager imm = (InputMethodManager) this.getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(message.getWindowToken(), 0);
+    }
+
+    @UiThread
+    void dispalyError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
