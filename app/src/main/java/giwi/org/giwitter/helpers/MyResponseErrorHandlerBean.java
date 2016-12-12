@@ -38,6 +38,6 @@ class MyResponseErrorHandlerBean implements ResponseErrorHandler {
      */
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        Toast.makeText(context, response.getStatusText(), Toast.LENGTH_LONG).show();
+        throw new CustomException(response.getStatusText());
     }
 }

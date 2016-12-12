@@ -14,6 +14,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.rest.spring.annotations.RestService;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -23,31 +27,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import giwi.org.giwitter.R;
+import giwi.org.giwitter.helpers.Constants;
+import giwi.org.giwitter.helpers.MyRestClient;
+import giwi.org.giwitter.helpers.Session;
 
 
 /**
  * The type Write msg dialog.
  */
+@EFragment
 public class WriteMsgDialog extends DialogFragment {
 
     private EditText message;
-
-    /**
-     * Gets instance.
-     *
-     * @param token  the token
-     * @param userId the user id
-     * @return the instance
-     */
-    public static WriteMsgDialog getInstance(final String token, final String userId) {
-        WriteMsgDialog f = new WriteMsgDialog();
-        // Supply num input as an argument.
-        Bundle args = new Bundle();
-        args.putString("token", token);
-        args.putString("user_id", userId);
-        f.setArguments(args);
-        return f;
-    }
+    @RestService
+    MyRestClient restClient;
 
 
     /**
@@ -75,7 +68,8 @@ public class WriteMsgDialog extends DialogFragment {
                         closeKeyboard();
                         if (!message.getText().toString().isEmpty()) {
                             //post message
-                            new SendMessageAsyncTask(view.getContext()).execute(message.getText().toString());
+                            sentMessage(message.getText().toString());
+                            // new SendMessageAsyncTask(view.getContext()).execute(message.getText().toString());
                         } else {
                             message.setError(WriteMsgDialog.this.getActivity()
                                     .getString(R.string.error_missing_msg));
@@ -92,87 +86,26 @@ public class WriteMsgDialog extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Sent message.
+     *
+     * @param s the s
+     */
+    @Background
+    void sentMessage(String s) {
+        try {
+            JSONObject message = new JSONObject()
+                    .put("user_id", Session.userId)
+                    .put("content", s);
+            restClient.sendMessage(message.toString());
+        } catch (JSONException e) {
+            Log.e(Constants.TAG, e.getMessage());
+        }
+    }
+
     private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(message.getWindowToken(), 0);
-    }
-
-    /**
-     * The type Send message async task.
-     */
-    protected class SendMessageAsyncTask extends AsyncTask<String, Void, Integer> {
-
-        Context context;
-
-        /**
-         * Instantiates a new Send message async task.
-         *
-         * @param context the context
-         */
-        SendMessageAsyncTask(final Context context) {
-            this.context = context;
-        }
-
-        /**
-         * Do in background integer.
-         *
-         * @param params the params
-         * @return the integer
-         */
-        @Override
-        protected Integer doInBackground(String... params) {
-            InputStream inputStream = null;
-
-            try {
-                URL url = new URL(WriteMsgDialog.this.getString(R.string.url_msg));
-                Log.d("Calling URL", url.toString());
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                //set authorization header
-                conn.setRequestProperty("X-secure-Token", getArguments().getString("token"));
-                conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-                JSONObject message = new JSONObject()
-                        .put("user_id", getArguments().getString("user_id"))
-                        .put("content", params[0]);
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                // Starts the query
-                // Send post request
-                conn.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-                wr.write(message.toString().getBytes("UTF-8"));
-                wr.flush();
-                wr.close();
-                return conn.getResponseCode();
-            } catch (Exception e) {
-                Log.e("NetworkHelper", e.getMessage());
-                return null;
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        Log.e("NetworkHelper", e.getMessage());
-                    }
-                }
-            }
-        }
-
-        /**
-         * On post execute.
-         *
-         * @param status the status
-         */
-        @Override
-        public void onPostExecute(Integer status) {
-            if (status != 200) {
-                Toast.makeText(context, context.getString(R.string.error_send_msg), Toast.LENGTH_SHORT).show();
-            }else {
-                WriteMsgDialog.this.dismiss();
-            }
-        }
     }
 }

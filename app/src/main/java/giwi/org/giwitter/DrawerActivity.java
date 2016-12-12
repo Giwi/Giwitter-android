@@ -21,6 +21,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,10 @@ import java.util.List;
 import giwi.org.giwitter.fragment.MessagesFragment;
 import giwi.org.giwitter.fragment.MessagesFragment_;
 import giwi.org.giwitter.fragment.UsersFragment;
+import giwi.org.giwitter.fragment.UsersFragment_;
 import giwi.org.giwitter.fragment.WriteMsgDialog;
+import giwi.org.giwitter.fragment.WriteMsgDialog_;
+import giwi.org.giwitter.helpers.MyRestClient;
 import giwi.org.giwitter.helpers.Session;
 
 /**
@@ -49,12 +53,20 @@ public class DrawerActivity extends AppCompatActivity {
     NavigationView nav_view;
     @ViewById
     FloatingActionButton fab;
+    @RestService
+    MyRestClient restClient;
 
+    /**
+     * Fab.
+     */
     @Click
     void fab() {
-        WriteMsgDialog.getInstance(Session.token, Session.userId).show(DrawerActivity.this.getFragmentManager(), "write");
+        WriteMsgDialog_.builder().build().show(DrawerActivity.this.getFragmentManager(), "write");
     }
 
+    /**
+     * Init.
+     */
     @AfterViews
     void init() {
         final ActionBar ab = getSupportActionBar();
@@ -66,7 +78,7 @@ public class DrawerActivity extends AppCompatActivity {
         if (viewpager != null) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
             adapter.addFragment(MessagesFragment_.builder().build(), "Messages");
-            adapter.addFragment(new UsersFragment(), "Users");
+            adapter.addFragment(UsersFragment_.builder().build(), "Users");
             viewpager.setAdapter(adapter);
         }
         tabs.setupWithViewPager(viewpager);

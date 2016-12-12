@@ -43,8 +43,11 @@ public class MessagesFragment extends Fragment {
     MyRestClient restClient;
     MessagesDao messagesDao;
 
+    /**
+     * Init.
+     */
     @AfterViews
-    public void init() {
+    void init() {
         messagesDao = new MessagesDao(getActivity());
         setupRefreshLayout();
         setupRecyclerView();
@@ -81,6 +84,11 @@ public class MessagesFragment extends Fragment {
         messages_swiperefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimaryDark, R.color.colorPrimary);
     }
 
+    /**
+     * Gets message list.
+     *
+     * @param refresh the refresh
+     */
     @Background
     void getMessageList(boolean refresh) {
         if (NetworkHelper.isInternetAvailable(getActivity()) && refresh) {
@@ -104,6 +112,11 @@ public class MessagesFragment extends Fragment {
         display(messagesDao.readMessages());
     }
 
+    /**
+     * Display.
+     *
+     * @param messages the messages
+     */
     @UiThread
     void display(List<Message> messages) {
         if (messages != null) {

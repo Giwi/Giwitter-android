@@ -28,6 +28,9 @@ import giwi.org.giwitter.helpers.MyRestClient;
 import giwi.org.giwitter.helpers.NetworkHelper;
 import giwi.org.giwitter.helpers.Session;
 
+/**
+ * The type Main activity.
+ */
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
@@ -48,25 +51,48 @@ public class MainActivity extends AppCompatActivity {
     @StringRes
     String error_login;
 
+    /**
+     * Init.
+     */
     @AfterViews
     void init() {
         signin_username.setText(myPrefs.username().getOr(""));
     }
 
+    /**
+     * Signin btn.
+     */
     @Click
     void signin_btn() {
         if (!NetworkHelper.isInternetAvailable(this)) {
             return;
         }
         loading(true);
-        doLogin(signin_username.getText().toString(), signin_pwd
-                .getText().toString());
+        try {
+            doLogin(signin_username.getText().toString(), signin_pwd
+                    .getText().toString());
+        } catch (Exception e) {
+            dispalyError(e.getMessage());
+        }
     }
+    @UiThread
+    void dispalyError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+    /**
+     * Signin register.
+     */
     @Click
     void signin_register() {
         SignupActivity_.intent(this).start();
     }
 
+    /**
+     * Do login.
+     *
+     * @param login  the login
+     * @param passwd the passwd
+     */
     @Background
     void doLogin(String login, String passwd) {
 
@@ -82,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Loading.
+     *
+     * @param loading the loading
+     */
     void loading(boolean loading) {
         if (loading) {
             signin_pg.setVisibility(View.VISIBLE);
@@ -96,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * On post execute.
+     *
+     * @param secureToken the secure token
+     */
     @UiThread
     void onPostExecute(final String secureToken) {
         loading(false);
